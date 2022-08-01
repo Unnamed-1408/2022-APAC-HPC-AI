@@ -22,7 +22,7 @@ def cnn_model(max_len, vocab_size):
 ## Step 1: Implement your own model below
 
 def unet_model(max_len, vocab_size):
-    inputs = InputLayer(input_shape=(max_len, vocab_size))
+    inputs = Input((max_len, vocab_size))
     conv1 = Conv2D(64, 3, activation='relu', padding='same', kernel_initializer='he_normal')(inputs)
     conv1 = Conv2D(64, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv1)
     pool1 = MaxPooling2D(pool_size=(2, 2))(conv1)

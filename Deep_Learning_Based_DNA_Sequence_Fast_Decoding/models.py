@@ -49,7 +49,7 @@ def unet_model(max_len, vocab_size):
 
     up7 = Conv1D(256, 2, activation='relu', padding='same', kernel_initializer='he_normal')(
         UpSampling1D(size=4)(conv6))
-    merge7 = concatenate([conv3, up7], axis=3)
+    merge7 = concatenate([conv3, up7], axis=2)
     conv7 = Conv1D(256, 3, activation='relu', padding='same', kernel_initializer='he_normal')(merge7)
     conv7 = Conv1D(256, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv7)
 

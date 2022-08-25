@@ -36,6 +36,8 @@ def get_args():
                         help='fix random seed')
     parser.add_argument('-f', '--path', default='/g/data/ik06/stark/NCI_Leopard/', type=str,
                         help='save data to path')
+    parser.add_argument('-e', '--enable_profile', default=0, type=int)
+    parser.add_argument('-p', '--log_path', default='nan', type=str)
     args = parser.parse_args()
     return args
 
@@ -50,6 +52,8 @@ def main():
     model_arch = args.models
     draw_times = args.draw_frequency
     file_path = args.path
+    enable_profile = args.enable_profile
+    log_path = args.log_path
 
     print(args)
 
@@ -102,6 +106,12 @@ def main():
                 hvd.callbacks.BroadcastGlobalVariablesCallback(0),
                 hvd.callbacks.MetricAverageCallback(),
                 early_stop]
+
+    if enable_profile == 1:
+        if log_path == 'nan':
+            print('If you need profiling, please enter valid path')
+        else:
+            callbacks.append(tf.keras.callbacks.TensorBoard(log_dir=log_path, histogram_freq=1))
 
     # Horovod: save checkpoints only on worker 0 to prevent other workers from corrupting them.
     if hvd.rank() == 0:

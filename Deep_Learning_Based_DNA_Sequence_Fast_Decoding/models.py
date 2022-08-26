@@ -22,20 +22,20 @@ def cnn_model(max_len, vocab_size):
 ## Step 1: Implement your own model below
 
 def unet_model(max_len, vocab_size):
-    inputs = Input((max_len, vocab_size))
+    inputs = Input(shape=(max_len, vocab_size))
     conv1 = Conv1D(64, 3, activation='relu', padding='same', kernel_initializer='he_normal')(inputs)
     conv1 = Conv1D(64, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv1)
-    pool1 = MaxPooling1D(pool_size=4)(conv1)
+    pool1 = MaxPooling1D(pool_size=4, strides=4)(conv1)
     conv2 = Conv1D(128, 3, activation='relu', padding='same', kernel_initializer='he_normal')(pool1)
     conv2 = Conv1D(128, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv2)
-    pool2 = MaxPooling1D(pool_size=4)(conv2)
+    pool2 = MaxPooling1D(pool_size=4, strides=4)(conv2)
     conv3 = Conv1D(256, 3, activation='relu', padding='same', kernel_initializer='he_normal')(pool2)
     conv3 = Conv1D(256, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv3)
-    pool3 = MaxPooling1D(pool_size=4)(conv3)
+    pool3 = MaxPooling1D(pool_size=4, strides=4)(conv3)
     conv4 = Conv1D(512, 3, activation='relu', padding='same', kernel_initializer='he_normal')(pool3)
     conv4 = Conv1D(512, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv4)
     drop4 = Dropout(0.5)(conv4)
-    pool4 = MaxPooling1D(pool_size=4)(drop4)
+    pool4 = MaxPooling1D(pool_size=4, strides=4)(drop4)
 
     conv5 = Conv1D(1024, 3, activation='relu', padding='same', kernel_initializer='he_normal')(pool4)
     conv5 = Conv1D(1024, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv5)

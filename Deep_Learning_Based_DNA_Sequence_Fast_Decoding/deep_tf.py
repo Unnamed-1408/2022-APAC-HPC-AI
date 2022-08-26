@@ -38,6 +38,7 @@ def get_args():
                         help='save data to path')
     parser.add_argument('-e', '--enable_profile', default=0, type=int)
     parser.add_argument('-p', '--log_path', default='nan', type=str)
+    parser.add_argument('-s', '--stop', default=0, type=int)
     args = parser.parse_args()
     return args
 
@@ -54,6 +55,8 @@ def main():
     file_path = args.path
     enable_profile = args.enable_profile
     log_path = args.log_path
+    # insert into prog to exit
+    stop = args.stop
 
     print(args)
 
@@ -128,6 +131,10 @@ def main():
     train_dataset = train_dataset.shuffle(2000).batch(batch_size)
     val_dataset = val_dataset.batch(batch_size)
     test_dataset = test_dataset.batch(batch_size)
+
+    if stop == 1:
+        print(train_dataset)
+        exit(0)
         
     tik = time.time()
     model.fit(x=train_dataset, epochs=200, batch_size=batch_size, validation_data=val_dataset, callbacks=callbacks)

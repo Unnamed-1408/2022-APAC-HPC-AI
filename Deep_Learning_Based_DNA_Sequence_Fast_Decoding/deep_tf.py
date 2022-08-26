@@ -111,7 +111,7 @@ def main():
         if log_path == 'nan':
             print('If you need profiling, please enter valid path')
         else:
-            callbacks.append(tf.keras.callbacks.TensorBoard(log_dir=log_path, histogram_freq=1))
+            callbacks.append(tf.keras.callbacks.TensorBoard(log_dir=log_path, histogram_freq=1, profile_batch='200,210'))
 
     # Horovod: save checkpoints only on worker 0 to prevent other workers from corrupting them.
     if hvd.rank() == 0:

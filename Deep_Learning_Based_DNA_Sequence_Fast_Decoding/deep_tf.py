@@ -133,7 +133,8 @@ def main():
     test_dataset = test_dataset.batch(batch_size)
 
     if stop == 1:
-        print(train_dataset)
+        for element in train_dataset.as_numpy_iterator():
+            print(element)
         exit(0)
         
     tik = time.time()

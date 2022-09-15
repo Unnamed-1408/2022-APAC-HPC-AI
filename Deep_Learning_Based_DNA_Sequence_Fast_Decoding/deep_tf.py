@@ -101,7 +101,7 @@ def main():
     # print model summary
     model.summary()
 
-    early_stop = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)
+    early_stop = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=20, restore_best_weights=True)
     callbacks = [
                 # Horovod: broadcast initial variable states from rank 0 to all other processes.
                 # This is necessary to ensure consistent initialization of all workers when
